@@ -50,11 +50,29 @@ Route::get('/allSupplier', 'ItemController@allSupplier');
 
 Route::get('/item_edit/{id}', 'ItemController@item_edit');
 
+Route::get('/inventory/{id}', 'ItemController@inventory');
+
+Route::get('/addworker', 'WorkerController@addworker');
+
 Route::post('/editItemKit', 'ItemController@editItemKit');
+
+Route::post('/enter_stock', 'ItemController@enter_stock');
 
 Route::get('/add_stock/{id}', 'ItemController@add_stock');
 
 Route::post('/category_form', 'ItemController@category_form');
+
+Route::get('/allworkers', 'WorkerController@allworkers');
+
+Route::get('/worker_edit/{id}', 'WorkerController@worker_edit');
+
+Route::post('/edit_worker', 'WorkerController@edit_worker');
+
+Route::get('/worker_delete/{id}', 'WorkerController@worker_delete');
+
+Route::get('/sale', 'SalesController@sale');
+
+Route::post('/register2', 'WorkerController@register2');
 
 
 

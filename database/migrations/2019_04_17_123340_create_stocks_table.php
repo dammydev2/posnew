@@ -23,6 +23,7 @@ class CreateStocksTable extends Migration
             $table->string('s_price');
             $table->string('bar_code');
             $table->string('supplier');
+            $table->string('kit_id');
             $table->timestamps();
         });
     }

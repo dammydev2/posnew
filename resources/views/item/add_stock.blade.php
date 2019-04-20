@@ -7,10 +7,10 @@
         <div class="col-lg-12" style="height: 10px;"></div>
 
         <div class="panel panel-primary col-lg-6">
-          <div class="panel-heading">Item Kit</div>
+            <div class="panel-heading">Add new Item</div>
           <div class="panel-body">
-            
-            <form method="post" action="{{ url('/editItemKit') }}">
+
+            <form method="post" action="{{ url('/enter_stock') }}">
 
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -26,18 +26,18 @@
 
                 @foreach($data as $row)
                 <div class="form-group">
-                   <label>Item Kit name</label>
-                   <input type="text" value="{{ $row->name }}" name="name" class="form-control" readonly="" placeholder="e.g. can coke, peak milk tin, Dano refined">
-               </div>
+                 <label>Item Kit name</label>
+                 <input type="text" value="{{ $row->name }}" name="name" class="form-control" readonly="" placeholder="e.g. can coke, peak milk tin, Dano refined">
+             </div>
 
-               <input type="hidden" name="id" value="{{ $row->id }}">
+             <input type="hidden" name="id" value="{{ $row->id }}">
 
-               <div class="form-group">
-                   <label>Category</label>
-                   <input type=text" value="{{ $row->category }}" readonly="" name="category" class="form-control" placeholder="e.g. can coke, peak milk tin, Dano refined">
-            </div>
+             <div class="form-group">
+                 <label>Category</label>
+                 <input type=text" value="{{ $row->category }}" readonly="" name="category" class="form-control" placeholder="e.g. can coke, peak milk tin, Dano refined">
+             </div>
 
-            <div class="form-group">
+             <div class="form-group">
                 <label>Weight</label>
                 <input type="text" value="{{ $row->weight }}" readonly="" name="weight" class="form-control" placeholder="e.g. 2kg, 90g">
             </div>
@@ -63,12 +63,16 @@
 
             <div class="form-group">
                 <label>supplier</label>
-                <input type="text" value="{{ $row->supplier }}" readonly="" name="supplier" class="form-control" placeholder="e.g. 200, 1200">
+                <select name="supplier" class="form-control">
+                    <option>Select supplier</option>
+                    @foreach($data2 as $row)
+                    <option>{{$row->name}}</option>@endforeach         
+                </select>
             </div>
 
-@endforeach 
+            @endforeach 
 
-            <input type="submit" value="Update" name="submit" class="btn btn-primary">
+            <input type="submit" value="Add Item" name="submit" class="btn btn-primary">
             
 
         </form>

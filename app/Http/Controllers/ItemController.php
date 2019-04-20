@@ -6,10 +6,16 @@ use App\Item;
 use Session;
 use App\Category;
 use App\supplier;
+use App\Stock;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -145,6 +151,22 @@ class ItemController extends Controller
             'bar_code' => $request['bar_code'],
             'supplier' => $request['supplier'],
         ]);
+        $data = Item::where('name', $request['name'])->get();
+        foreach ($data as $row) {
+            $item_id = $row->id;
+        }
+
+        Stock::create([
+            'name' => $request['name'],
+            'category' => $request['category'],
+            'weight' => $request['weight'],
+            'quantity' => $request['quantity'],
+            'c_price' => $request['c_price'],
+            's_price' => $request['s_price'],
+            'bar_code' => $request['bar_code'],
+            'supplier' => $request['supplier'],
+            'kit_id' => $item_id,
+        ]);
         Session::flash('success', 'Item added successfully');
         return redirect('allItem');
     }
@@ -180,8 +202,46 @@ class ItemController extends Controller
 
     public function add_stock($id)
     {
+        $data2 = Supplier::all();
         $data = Item::where('id', $id)->get();
-        return view('item.add_stock', compact('data'));
+        return view('item.add_stock', compact('data', 'data2'));
+    }
+
+    public function enter_stock(Request $request)
+    {
+        $request->validate([
+            'quantity2' => 'required',
+        ]);
+        Stock::create([
+            'name' => $request['name'],
+            'category' => $request['category'],
+            'weight' => $request['weight'],
+            'quantity' => $request['quantity2'],
+            'c_price' => $request['c_price'],
+            's_price' => $request['s_price'],
+            'bar_code' => $request['bar_code'],
+            'supplier' => $request['supplier'],
+            'kit_id' => $request['id'],
+        ]);
+        $qty = $request['quantity'] + $request['quantity2'];
+        Item::where('id', $request['id'])
+        ->update([
+            'quantity' => $request['quantity2'],
+            'c_price' => $request['c_price'],
+            's_price' => $request['s_price'],
+            'bar_code' => $request['bar_code'],
+            'supplier' => $request['supplier'],
+        ]);
+        Session::flash('success', 'Item added successfully');
+        return redirect('allItem');
+    }
+
+    public function inventory($id)
+    {
+        $data = Stock::where('kit_id', $id)
+        ->orderBy('id', 'DESC')
+        ->paginate(5);
+        return view('item.inventory', compact('data'));
     }
 
     
