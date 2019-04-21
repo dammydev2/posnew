@@ -226,7 +226,7 @@ class ItemController extends Controller
         $qty = $request['quantity'] + $request['quantity2'];
         Item::where('id', $request['id'])
         ->update([
-            'quantity' => $request['quantity2'],
+            'quantity' => $qty,
             'c_price' => $request['c_price'],
             's_price' => $request['s_price'],
             'bar_code' => $request['bar_code'],
