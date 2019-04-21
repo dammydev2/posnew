@@ -57,6 +57,7 @@ public function action(Request $request)
          <td>'.$row->bar_code.'</td>
          <td>'.$row->weight.'</td>
          <td>'.$row->s_price.'</td>
+         <td><input type="text" value="'.$row->bar_code.'" id="txtName" /></td>
         ';
        }
       }

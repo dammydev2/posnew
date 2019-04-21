@@ -65,48 +65,93 @@ $(document).ready(function(){
 });
 </script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".add-row").click(function(){
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var markup = "<tr><td><input type='checkbox' name='record'></td><td>" + name + "</td><td>" + email + "</td></tr>";
-            $("table tbody").append(markup);
-        });
-        
-        // Find and remove selected table rows
-        $(".delete-row").click(function(){
-            $("table tbody").find('input[name="record"]').each(function(){
-                if($(this).is(":checked")){
-                    $(this).parents("tr").remove();
-                }
-            });
-        });
-    });    
-</script>
 
-    <form>
-        <input type="text" id="name" placeholder="Name">
-        <input type="text" id="email" placeholder="Email Address">
-        <input type="button" class="add-row" value="Add Row">
-    </form>
-    <table>
+
+
+
+<script type="text/javascript">
+        window.onload = function () {
+            //Build an array containing Customer records.
+            var customers = new Array();
+            customers.push(["John Hammond", "United States"]);
+            customers.push(["Mudassar Khan", "India"]);
+            customers.push(["Suzanne Mathews", "France"]);
+            customers.push(["Robert Schidner", "Russia"]);
+ 
+            //Add the data rows.
+            for (var i = 0; i < customers.length; i++) {
+                AddRow(customers[i][0], customers[i][1]);
+            }
+        };
+ 
+        function Add() {
+            var txtName = document.getElementById("txtName");
+            var txtCountry = document.getElementById("txtCountry");
+            AddRow(txtName.value, txtCountry.value);
+            txtName.value = "";
+            txtCountry.value = "";
+        };
+ 
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = button.parentNode.parentNode;
+            var name = row.getElementsByTagName("TD")[0].innerHTML;
+            if (confirm("Do you want to delete: " + name)) {
+ 
+                //Get the reference of the Table.
+                var table = document.getElementById("tblCustomers");
+ 
+                //Delete the Table row using it's Index.
+                table.deleteRow(row.rowIndex);
+            }
+        };
+ 
+        function AddRow(name, country) {
+            //Get the reference of the Table's TBODY element.
+            var tBody = document.getElementById("tblCustomers").getElementsByTagName("TBODY")[0];
+ 
+            //Add Row.
+            row = tBody.insertRow(-1);
+ 
+            //Add Name cell.
+            var cell = row.insertCell(-1);
+            cell.innerHTML = name;
+ 
+            //Add Country cell.
+            cell = row.insertCell(-1);
+            cell.innerHTML = country;
+ 
+            //Add Button cell.
+            cell = row.insertCell(-1);
+            var btnRemove = document.createElement("INPUT");
+            btnRemove.type = "button";
+            btnRemove.value = "Remove";
+            btnRemove.setAttribute("onclick", "Remove(this);");
+            cell.appendChild(btnRemove);
+        }
+    </script>
+    <table id="tblCustomers" cellpadding="0" cellspacing="0" border="1">
         <thead>
             <tr>
-                <th>Select</th>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Country</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><input type="checkbox" name="record"></td>
-                <td>Peter Parker</td>
-                <td>peterparker@mail.com</td>
-            </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td><input type="text" id="txtName" /></td>
+                <td><input type="text" id="txtCountry" /></td>
+                <td><input type="button" onclick="Add()" value="Add" /></td>
+            </tr>
+        </tfoot>
     </table>
-    <button type="button" class="delete-row">Delete Row</button>
+
+
+
+
 
 
 
