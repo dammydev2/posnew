@@ -20,6 +20,7 @@ class CreateSalesTable extends Migration
             $table->string('qty');
             $table->string('rec');
             $table->string('price');
+            $table->string('seller');
             $table->timestamps();
         });
     }

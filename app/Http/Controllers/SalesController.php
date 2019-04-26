@@ -90,6 +90,7 @@ class SalesController extends Controller
       'qty' => $request['qty'][$i],
       'rec' => $request['rec'][$i],
       'price' => $request['price'][$i],
+      'seller' => \Auth::User()->email,
     ]);
   }
   Session::put('rec', $request['rec']);
