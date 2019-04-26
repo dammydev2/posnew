@@ -72,6 +72,10 @@ Route::get('/worker_delete/{id}', 'WorkerController@worker_delete');
 
 Route::get('/sale', 'SalesController@sale');
 
+Route::get('/thesale', 'SalesController@thesale');
+
+Route::post('/sale_enter', 'SalesController@sale_enter');
+
 Route::post('/register2', 'WorkerController@register2');
 
 Route::get('/live_search/action', 'SalesController@action')->name('live_search.action');

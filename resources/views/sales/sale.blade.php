@@ -2,160 +2,190 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+  <div class="row">
 
-<script src="{{ URL::asset('js/ajax.js') }}"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
+    <script src="{{ URL::asset('js/ajax.js') }}"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    	<div class="container box">
-   <h3 align="center">Live search in laravel using AJAX</h3><br />
-   <div class="panel panel-default">
-    <div class="panel-heading">Search Customer Data</div>
-    <div class="panel-body">
-     <div class="form-group">
-      <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
+    <style type="text/css">
+      div.resultdata div:hover {
+        background-color: #e1e1e1;
+      }
+    </style>
+
+    <div class="col-sm-12">
+     <h3 align="center">Live search in laravel using AJAX</h3><br />
+     <div class="panel panel-default">
+      <div class="panel-heading">Search Customer Data</div>
+      <div class="panel-body">
+        <div class="myrespons"></div>
+        <div class="form-group">
+          <input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" style="border-radius: 5px 5px 0 0;" />
+          <div class="col-sm-12 resultdata" style="padding: 5px;border: 1px solid #e1e1e1;border-top: none;display: none;">
+
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <h3 align="center">Total Data : <span id="total_records"></span></h3>
+          <form method="post" action="{{ url('/sale_enter') }}" id="form1">
+            {{ csrf_field() }}
+          <table class="table table-striped table-bordered items">
+           <thead>
+            <tr>
+             <th>Item Name</th>
+             <th>Barcode</th>
+             <th>weight</th>
+             <th>Qty</th>
+             <th>Amt</th>
+             <th>Total Amt</th>
+             <th></th>
+           </tr>
+         </thead>
+         <tbody>
+
+         </tbody>
+         <tfoot>
+           <tr>
+             <th colspan="5">Total</th>
+             <th colspan="2">&#8358;<span class="total">0.00</span></th>
+           </tr>
+         </tfoot>
+       </table>
+       <input type="submit" name="" value="continue" class="btn btn-primary">
+     </form>
      </div>
-     <div class="table-responsive">
-      <h3 align="center">Total Data : <span id="total_records"></span></h3>
-      <table class="table table-striped table-bordered">
-       <thead>
-        <tr>
-         <th>Item Name</th>
-         <th>Barcode</th>
-         <th>weight</th>
-         <th>Amount</th>
-        </tr>
-       </thead>
-       <tbody>
+   </div>    
+ </div>
+</div>
+@php
 
-       </tbody>
-      </table>
-     </div>
-    </div>    
-   </div>
-  </div>
+$num = rand();
 
+@endphp
 
-  <script>
-$(document).ready(function(){
+<script type="text/javascript">
+  var form1 = document.getElementById('form1');
+form1.onsubmit = function(e){
+    var form = this;
+    e.preventDefault();
+    if(confirm("Are you sure you wish to submit? You cant undo"))
+        form.submit();
+}
+</script>
 
- fetch_customer_data();
+<script>
 
- function fetch_customer_data(query = '')
- {
-  $.ajax({
-   url:"{{ route('live_search.action') }}",
-   method:'GET',
-   data:{query:query},
-   dataType:'json',
-   success:function(data)
+  var added = [];
+  $(document).ready(function(){
+
+   fetch_customer_data();
+
+   function fetch_customer_data(query = '')
    {
-    $('tbody').html(data.table_data);
-    $('#total_records').text(data.total_data);
-   }
+    $.ajax({
+     url:"{{ route('live_search.action') }}",
+     method:'GET',
+     data:{query:query},
+     dataType:'json',
+     success:function(data)
+     {
+      if(data.total_data > 0) {
+        $(".myrespons").html("");
+        $("div.resultdata").slideDown();
+        $('div.resultdata').html(data.table_data);
+      } else {
+        $(".myrespons").html("<div class='alert alert-danger'>No Data Found</div>");
+      }
+      $('#total_records').text(data.total_data);
+    }
   })
- }
+  }
 
- $(document).on('keyup', '#search', function(){
-  var query = $(this).val();
-  fetch_customer_data(query);
- });
+  $(document).on("click","div.rst", function () {
+    el = $(this);
+
+    name = el.text();
+    if(added.indexOf(name) > -1) {
+     $("div.resultdata").slideUp();
+     $("div.resultdata").html("");
+     $("input#search").val("");
+   } else {
+    price = el.data("sprice")
+    weight = el.data("weight")
+    barcode = el.data("barcode")
+    rec = "{{ $num }}";
+
+    $("div.resultdata").slideUp();
+    $("div.resultdata").html("");
+    $("input#search").val("");
+
+    tdata = "<tr>"
+
+    tdata += "<td>"+name+"<input type='hidden' name='name[]' value='"+name+"' class='form-control qty'/></td>"
+    tdata += "<td>"+barcode+"</td>";
+    tdata += "<td>"+weight+"<input type='hidden' name='barcode[]' value='"+barcode+"' /></td>";
+    tdata += "<td><input type='number' name='qty[]' min='1' value='1' class='form-control qty'/><input type='hidden' name='rec[]' min='1' value='"+rec+"' class='form-control qty'/></td>"
+    tdata += "<td>"+price+"</td><td>&#8358;<span class='tamount'>"+price+"</span><input type='hidden' name='price[]' value='"+price+"' /></td>"
+    tdata += "<td><a href='#' class='btn btn-danger btn-xs rm'><i class='fa fa-trash'></i></a></td>"
+    tdata += "</tr>";
+    $("table.items tbody").append(tdata);
+    added.push(name);
+    sumup()
+  }
+})
+
+$(document).on("click","a.rm", function () {
+
+  txt = $(this).parents("tr").find("td:first").text()
+  $(this).parents("tr").remove();
+  ind = added.indexOf(txt);
+  added.splice(ind,1)
+  sumup();
+
+})
+
+$(document).on("change", "input.qty", function () {
+  v = $(this).val();
+  prc = parseInt($(this).parents("td").next().text())
+
+  tamt = prc * v
+
+  $(this).parents("td").next().next().find("span.tamount").html(tamt);
+  sumup()
+})
+
+  $(document).on('keyup', '#search', function(){
+    if($(this).val() == "") {
+      $("div.resultdata").slideUp();
+    }
+    var query = $(this).val();
+    fetch_customer_data(query);
+  });
 });
+
+  function sumup() {
+    len = $("span.tamount").length
+    sum = 0;
+    for(a = 0; a < len; a++) {
+      v = parseInt($("span.tamount:eq("+a+")").text());
+      sum += v
+    }
+
+    $("tfoot span.total").html(sum);
+  }
 </script>
 
 
 
 
 
-<script type="text/javascript">
-        window.onload = function () {
-            //Build an array containing Customer records.
-            var customers = new Array();
-            customers.push(["John Hammond", "United States"]);
-            customers.push(["Mudassar Khan", "India"]);
-            customers.push(["Suzanne Mathews", "France"]);
-            customers.push(["Robert Schidner", "Russia"]);
- 
-            //Add the data rows.
-            for (var i = 0; i < customers.length; i++) {
-                AddRow(customers[i][0], customers[i][1]);
-            }
-        };
- 
-        function Add() {
-            var txtName = document.getElementById("txtName");
-            var txtCountry = document.getElementById("txtCountry");
-            AddRow(txtName.value, txtCountry.value);
-            txtName.value = "";
-            txtCountry.value = "";
-        };
- 
-        function Remove(button) {
-            //Determine the reference of the Row using the Button.
-            var row = button.parentNode.parentNode;
-            var name = row.getElementsByTagName("TD")[0].innerHTML;
-            if (confirm("Do you want to delete: " + name)) {
- 
-                //Get the reference of the Table.
-                var table = document.getElementById("tblCustomers");
- 
-                //Delete the Table row using it's Index.
-                table.deleteRow(row.rowIndex);
-            }
-        };
- 
-        function AddRow(name, country) {
-            //Get the reference of the Table's TBODY element.
-            var tBody = document.getElementById("tblCustomers").getElementsByTagName("TBODY")[0];
- 
-            //Add Row.
-            row = tBody.insertRow(-1);
- 
-            //Add Name cell.
-            var cell = row.insertCell(-1);
-            cell.innerHTML = name;
- 
-            //Add Country cell.
-            cell = row.insertCell(-1);
-            cell.innerHTML = country;
- 
-            //Add Button cell.
-            cell = row.insertCell(-1);
-            var btnRemove = document.createElement("INPUT");
-            btnRemove.type = "button";
-            btnRemove.value = "Remove";
-            btnRemove.setAttribute("onclick", "Remove(this);");
-            cell.appendChild(btnRemove);
-        }
-    </script>
-    <table id="tblCustomers" cellpadding="0" cellspacing="0" border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Country</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td><input type="text" id="txtName" /></td>
-                <td><input type="text" id="txtCountry" /></td>
-                <td><input type="button" onclick="Add()" value="Add" /></td>
-            </tr>
-        </tfoot>
-    </table>
 
 
 
 
 
 
-
-
+      </div>
     </div>
-</div>
-@endsection
+    @endsection
