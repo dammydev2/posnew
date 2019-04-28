@@ -114,6 +114,7 @@ form1.onsubmit = function(e){
     price = el.data("sprice")
     weight = el.data("weight")
     barcode = el.data("barcode")
+    c_price = el.data("c_price")
     rec = "{{ $num }}";
 
     $("div.resultdata").slideUp();
@@ -125,7 +126,7 @@ form1.onsubmit = function(e){
     tdata += "<td>"+name+"<input type='hidden' name='name[]' value='"+name+"' class='form-control qty'/></td>"
     tdata += "<td>"+barcode+"</td>";
     tdata += "<td>"+weight+"<input type='hidden' name='barcode[]' value='"+barcode+"' /></td>";
-    tdata += "<td><input type='number' name='qty[]' min='1' value='1' class='form-control qty'/><input type='hidden' name='rec[]' min='1' value='"+rec+"' class='form-control qty'/></td>"
+    tdata += "<td><input type='number' name='qty[]' min='1' value='1' class='form-control qty'/><input type='hidden' name='c_price[]' value='"+c_price+"' class='form-control qty'/><input type='hidden' name='rec[]' min='1' value='"+rec+"' class='form-control qty'/></td>"
     tdata += "<td>"+price+"</td><td>&#8358;<span class='tamount'>"+price+"</span><input type='hidden' name='price[]' value='"+price+"' /></td>"
     tdata += "<td><a href='#' class='btn btn-danger btn-xs rm'><i class='fa fa-trash'></i></a></td>"
     tdata += "</tr>";

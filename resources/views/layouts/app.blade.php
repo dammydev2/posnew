@@ -38,7 +38,7 @@
 
             <!-- Logo -->
             <a href="#" class="logo">
-                <b>InfyOm</b>
+                <b>Mowa</b>
             </a>
 
             <!-- Header Navbar -->
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Main Footer -->
-        <footer class="main-footer" style="max-height: 100px;text-align: center">
+        <footer class="main-footer dontprint" style="max-height: 100px;text-align: center">
             <strong>Copyright © 2016 <a href="#">Company</a>.</strong> All rights reserved.
         </footer>
 
@@ -166,4 +166,8 @@
 
     @yield('scripts')
 </body>
+<style type="text/css" media="print">
+.dontprint
+{ display: none; }
+</style>
 </html>

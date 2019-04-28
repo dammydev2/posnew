@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    #return view('welcome');
+    return view('index');
 });
 
 
@@ -73,6 +73,42 @@ Route::get('/worker_delete/{id}', 'WorkerController@worker_delete');
 Route::get('/sale', 'SalesController@sale');
 
 Route::get('/thesale', 'SalesController@thesale');
+
+Route::get('/printRec', 'SalesController@printRec');
+
+Route::post('/payment', 'SalesController@payment');
+
+Route::get('/daysales', 'SalesController@daysales');
+
+Route::get('/salesman', 'SalesController@salesman');
+
+Route::get('/salesmanmonth', 'SalesController@salesmanmonth');
+
+Route::get('/dailycashier', 'SalesController@dailycashier');
+
+Route::post('/viewdate', 'SalesController@viewdate');
+
+Route::post('/viewmonth', 'SalesController@viewmonth');
+
+Route::post('/viewmonthacc', 'SalesController@viewmonthacc');
+
+Route::post('/chkSaleDay', 'SalesController@chkSaleDay');
+
+Route::post('/chkSaleMonth', 'SalesController@chkSaleMonth');
+
+Route::get('/dailySales', 'SalesController@dailySales');
+
+Route::get('/monthaccount', 'SalesController@monthaccount');
+
+Route::get('/monthsales', 'SalesController@monthsales');
+
+Route::get('/monthsales', 'SalesController@monthsales');
+
+Route::get('/dateview', 'SalesController@dateview');
+
+Route::get('/account', 'SalesController@account');
+
+Route::get('/datemonthview', 'SalesController@datemonthview');
 
 Route::post('/sale_enter', 'SalesController@sale_enter');
 

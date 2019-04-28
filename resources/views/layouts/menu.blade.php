@@ -6,8 +6,17 @@
 <li><a href="{{ url('/allSupplier') }}">Supplier</a></li>
 <li><a href="{{ url('/allItem') }}">Item</a></li>
 <li><a href="{{ url('/addworker') }}">Add worker</a></li>
-<li><a href="{{ url('/allworkers') }}">Awl workers</a></li>
+<li><a href="{{ url('/allworkers') }}">All workers</a></li>
+<li><a href="{{ url('/daysales') }}">Day Sales</a></li>
+<li><a href="{{ url('/monthsales') }}">Month Sales</a></li>
+<li><a href="{{ url('/account') }}">account</a></li>
 
 @elseif(\Auth::User()->type == 2)
 <li><a href="{{ url('/sale') }}">Start sale</a></li>
+
+@elseif(\Auth::User()->type == 1)
+
+<li><a href="{{ url('/daysales') }}">Day Sales</a></li>
+<li><a href="{{ url('/monthsales') }}">Month Sales</a></li>
+
 @endif
