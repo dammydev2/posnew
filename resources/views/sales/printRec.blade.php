@@ -22,7 +22,7 @@
                 	</div>
                 @endif
 			
-			<table class="table table-bordered col-sm-10">
+			<table class="" border="1" style="width: 100%">
 				<tr>
 					<th colspan="5">
 						<center>
@@ -85,6 +85,12 @@
 
 	</div>
 </div>
+
+<style type="text/css">
+	th{
+		padding: 12px;
+	}
+</style>
 
 <script type="text/javascript">
 <!--

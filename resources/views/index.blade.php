@@ -52,7 +52,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <!-- nav -->
                     <nav class="pt-4 d-lg-flex">
                         <div id="logo">
-                            <h1> <a href="{{ url('/') }}">Organization</a></h1>
+                            <h1> <a href="{{ url('/') }}">Mowa Mall</a></h1>
                         </div>
                         <label for="drop" class="toggle">Menu</label>
                         <input type="checkbox" id="drop" />

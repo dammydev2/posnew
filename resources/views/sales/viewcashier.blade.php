@@ -8,7 +8,7 @@
 	{{ $data->links() }}
 		<table class="table table-bordered">
 			@php 
-			$total = 0;
+			$amt = 0;
 			@endphp
 			<tr>
 				<th colspan="4"><center><h3>{{ Session::get('name') }}  sales for : {{ Session::get('date') }}</h3></center></th>
@@ -26,9 +26,10 @@
 				<td>{{ $row->price }}</td>
 				<td class="text-right">{{ number_format($total = $row->price * $row->qty, 2) }}</td>
 			</tr>
+			@php $amt += $total @endphp
 			@endforeach
 			<tr>
-				<th colspan="4" class="text-right">Total Sales: &#8358;{{ number_format($total += $total, 2) }}</th>
+				<th colspan="4" class="text-right">Total Sales: &#8358;{{ number_format($amt, 2) }}</th>
 			</tr>
 		</table>
 		{{ $data->links() }}
