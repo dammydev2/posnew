@@ -22,7 +22,7 @@
                 	</div>
                 @endif
 			
-			<table class="" border="1" style="width: 100%">
+			<table class="" border="1" style="width: 50%">
 				<tr>
 					<th colspan="5">
 						<center>
