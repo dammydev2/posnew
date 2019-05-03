@@ -146,6 +146,16 @@ public function dateview()
   return view('sales.dateview');
 }
 
+public function weeksales()
+{
+  return view('sales.weeksales');
+}
+
+public function yearsales()
+{
+  return view('sales.yearsales');
+}
+
 public function viewdate(Request $request)
 {
   $request->validate([
@@ -153,6 +163,28 @@ public function viewdate(Request $request)
   ]);
   Session::put('date', $request['date']);
   return redirect('dailySales');
+}
+
+public function daterange(Request $request)
+{
+  $request->validate([
+    'date' => 'required',
+    'date2' => 'required',
+  ]);
+  $date = $request['date']." 00:00:00";
+  $date2 = $request['date2']." 23:59:00";
+  Session::put('date', $date);
+  Session::put('date2', $date2);
+  return redirect('rangeSales');
+}
+
+public function rangeSales()
+{
+  $date = Session::get('date');
+  $date2 = Session::get('date2');
+  $data = Sales::where('created_at', '>=', $date)
+  ->where('created_at', '<=', $date2)->paginate(25);
+  return view('sales.salesrange', compact('data'));
 }
 
 public function dailySales()

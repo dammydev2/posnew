@@ -80,13 +80,21 @@ Route::post('/payment', 'SalesController@payment');
 
 Route::get('/daysales', 'SalesController@daysales');
 
+Route::get('/weeksales', 'SalesController@weeksales');
+
 Route::get('/salesman', 'SalesController@salesman');
 
 Route::get('/salesmanmonth', 'SalesController@salesmanmonth');
 
+Route::get('/rangeSales', 'SalesController@rangeSales');
+
+Route::get('/yearsales', 'SalesController@yearsales');
+
 Route::get('/dailycashier', 'SalesController@dailycashier');
 
 Route::post('/viewdate', 'SalesController@viewdate');
+
+Route::post('/daterange', 'SalesController@daterange');
 
 Route::post('/viewmonth', 'SalesController@viewmonth');
 

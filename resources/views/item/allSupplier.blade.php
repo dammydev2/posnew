@@ -25,7 +25,7 @@
                         <th>Supplier Address</th>
                         <th>Phone</th>
                         <th></th>
-                        <th></th>
+                        <th><a href="{{ url('/add_supplier') }}">Add new supplier</a></th>
                     </tr>
                     @foreach($data as $row)
                     <tr>

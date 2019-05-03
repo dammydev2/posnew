@@ -19,6 +19,8 @@
                     {{ Session::get('delete') }}
                 </div>
                 @endif
+
+                <a href="{{ url('/add_category') }}" class="btn btn-primary">Add new category</a>
                 <table class="table table-bordered">
                     @foreach($data as $row)
                     <tr>
