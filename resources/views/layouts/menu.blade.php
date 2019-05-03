@@ -19,6 +19,8 @@
 @elseif(\Auth::User()->type == 1)
 
 <li><a href="{{ url('/daysales') }}">Day Sales</a></li>
+<li><a href="{{ url('/weeksales') }}">Date Range</a></li>
 <li><a href="{{ url('/monthsales') }}">Month Sales</a></li>
+<li><a href="{{ url('/yearsales') }}">Year Sales</a></li>
 
 @endif
