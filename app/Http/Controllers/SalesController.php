@@ -299,6 +299,12 @@ return view('sales.viewaccount', compact('data','data2'));
   #$data = Payment::where('created_at', 'like', '%'.$date.'%')->get();
 }
 
+public function profit()
+{
+  $data = Stock::all();
+  return view('sales.profit', compact('data'));
+}
+
 
     /**
      * Display a listing of the resource.

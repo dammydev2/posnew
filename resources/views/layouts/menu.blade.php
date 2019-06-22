@@ -12,6 +12,7 @@
 <li><a href="{{ url('/monthsales') }}">Month Sales</a></li>
 <li><a href="{{ url('/yearsales') }}">Year Sales</a></li>
 <li><a href="{{ url('/account') }}">account</a></li>
+<li><a href="{{ url('/profit') }}">Profit Margin</a></li>
 
 @elseif(\Auth::User()->type == 2)
 <li><a href="{{ url('/sale') }}">Start sale</a></li>

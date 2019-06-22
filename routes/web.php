@@ -120,6 +120,8 @@ Route::get('/datemonthview', 'SalesController@datemonthview');
 
 Route::post('/sale_enter', 'SalesController@sale_enter');
 
+Route::get('/profit', 'SalesController@profit');
+
 Route::post('/register2', 'WorkerController@register2');
 
 Route::get('/live_search/action', 'SalesController@action')->name('live_search.action');
