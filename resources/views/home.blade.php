@@ -10,7 +10,7 @@
     	$month = date('m');
 
     	if($year == 2021 && $month <= 6){
-    	echo "needing upgrade";
+    	echo "needing upgrade in a couple of months";
     }
     else if ($year == 2021 && $month > 6){
 echo '<meta http-equiv="refresh" content="1;url=http://localhost:8000/" />';
